@@ -4,6 +4,7 @@ const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 const navLinks = document.querySelectorAll('.nav-link');
 const scrollIndicator = document.querySelector('.scroll-indicator');
+const scrollToTopBtn = document.getElementById('scrollToTop');
 
 // Countdown Timer - Indian Standard Time (IST: UTC+5:30)
 // Create date in IST by adding 5:30 hours to UTC
@@ -114,6 +115,14 @@ scrollIndicator.addEventListener('click', () => {
             behavior: 'smooth'
         });
     }
+});
+
+// Scroll to top button functionality
+scrollToTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
 });
 
 
@@ -276,6 +285,13 @@ const debouncedScrollHandler = debounce(() => {
         navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
     }
 
+    // Show/hide scroll to top button
+    if (scrollY > 300) {
+        scrollToTopBtn.classList.add('show');
+    } else {
+        scrollToTopBtn.classList.remove('show');
+    }
+
     // Active navigation link highlighting
     let current = '';
     const sections = document.querySelectorAll('section');
@@ -366,63 +382,6 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Wedding Animation Enhancement
-function enhanceWeddingAnimation() {
-    const weddingAnimation = document.querySelector('.wedding-animation');
-    if (!weddingAnimation) return;
-
-    // Add random petal generation
-    setInterval(() => {
-        if (window.innerWidth > 768) { // Only on desktop for performance
-            const petal = document.createElement('div');
-            petal.className = 'flower-petal';
-            petal.style.left = Math.random() * 100 + '%';
-            petal.style.animationDelay = '0s';
-            petal.style.animationDuration = (Math.random() * 3 + 3) + 's';
-            weddingAnimation.appendChild(petal);
-
-            // Remove petal after animation
-            setTimeout(() => {
-                if (petal.parentNode) {
-                    petal.parentNode.removeChild(petal);
-                }
-            }, 6000);
-        }
-    }, 2000);
-
-    // Add mouse interaction for desktop
-    if (window.innerWidth > 768) {
-        weddingAnimation.addEventListener('mousemove', (e) => {
-            const rect = weddingAnimation.getBoundingClientRect();
-            const x = (e.clientX - rect.left) / rect.width;
-            const y = (e.clientY - rect.top) / rect.height;
-
-            const mandap = weddingAnimation.querySelector('.mandap');
-            const omSymbol = weddingAnimation.querySelector('.om-symbol');
-
-            if (mandap) {
-                mandap.style.transform = `translate(-50%, -50%) rotateX(${(y - 0.5) * 10}deg) rotateY(${(x - 0.5) * 10}deg)`;
-            }
-
-            if (omSymbol) {
-                omSymbol.style.transform = `translateX(-50%) scale(${1 + (y - 0.5) * 0.1})`;
-            }
-        });
-
-        weddingAnimation.addEventListener('mouseleave', () => {
-            const mandap = weddingAnimation.querySelector('.mandap');
-            const omSymbol = weddingAnimation.querySelector('.om-symbol');
-
-            if (mandap) {
-                mandap.style.transform = 'translate(-50%, -50%)';
-            }
-
-            if (omSymbol) {
-                omSymbol.style.transform = 'translateX(-50%) scale(1)';
-            }
-        });
-    }
-}
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
@@ -432,8 +391,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add loading class to body for initial animation
     document.body.classList.add('loaded');
 
-    // Enhance wedding animation
-    enhanceWeddingAnimation();
 
     // Preload critical images (if any are added later)
     const imageUrls = [];
