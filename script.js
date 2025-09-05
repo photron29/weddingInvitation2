@@ -417,15 +417,25 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Try to play immediately
+        // Try to play immediately (will likely fail on mobile)
         backgroundMusic.play().catch(error => {
             console.log('Autoplay prevented:', error);
-            // If autoplay is prevented, try to play on first user interaction
-            document.addEventListener('click', () => {
-                console.log('User clicked, trying to play audio');
-                backgroundMusic.play().catch(e => console.log('Still cannot play:', e));
-            }, { once: true });
         });
+
+        // Start music on first user interaction (works on all devices)
+        const startMusicOnInteraction = () => {
+            if (backgroundMusic.paused) {
+                backgroundMusic.play().then(() => {
+                    console.log('Music started on user interaction');
+                }).catch(e => console.log('Still cannot play:', e));
+            }
+        };
+
+        // Listen for various user interactions
+        document.addEventListener('click', startMusicOnInteraction, { once: true });
+        document.addEventListener('touchstart', startMusicOnInteraction, { once: true });
+        document.addEventListener('scroll', startMusicOnInteraction, { once: true });
+        document.addEventListener('keydown', startMusicOnInteraction, { once: true });
 
         // Set initial button state after a small delay to ensure audio state is stable
         setTimeout(() => {
