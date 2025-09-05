@@ -388,6 +388,78 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set initial countdown layout
     adjustCountdownLayout();
 
+    // Play background music
+    const backgroundMusic = document.getElementById('backgroundMusic');
+    if (backgroundMusic) {
+        console.log('Audio element found:', backgroundMusic);
+        backgroundMusic.volume = 0.5; // Set volume to 50%
+
+        // Add event listeners for debugging
+        backgroundMusic.addEventListener('loadstart', () => console.log('Audio loading started'));
+        backgroundMusic.addEventListener('canplay', () => console.log('Audio can play'));
+        backgroundMusic.addEventListener('error', (e) => console.log('Audio error:', e));
+        backgroundMusic.addEventListener('play', () => {
+            console.log('Audio started playing');
+            // Update button state when music starts
+            const musicToggle = document.getElementById('musicToggle');
+            if (musicToggle) {
+                musicToggle.classList.add('playing');
+                musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+        });
+        backgroundMusic.addEventListener('pause', () => {
+            console.log('Audio paused');
+            // Update button state when music pauses
+            const musicToggle = document.getElementById('musicToggle');
+            if (musicToggle) {
+                musicToggle.classList.remove('playing');
+                musicToggle.innerHTML = '<i class="fas fa-music"></i>';
+            }
+        });
+
+        // Try to play immediately
+        backgroundMusic.play().catch(error => {
+            console.log('Autoplay prevented:', error);
+            // If autoplay is prevented, try to play on first user interaction
+            document.addEventListener('click', () => {
+                console.log('User clicked, trying to play audio');
+                backgroundMusic.play().catch(e => console.log('Still cannot play:', e));
+            }, { once: true });
+        });
+
+        // Set initial button state after a small delay to ensure audio state is stable
+        setTimeout(() => {
+            const musicToggle = document.getElementById('musicToggle');
+            if (musicToggle && !backgroundMusic.paused) {
+                musicToggle.classList.add('playing');
+                musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+        }, 100);
+    } else {
+        console.log('Audio element not found');
+    }
+
+    // Music toggle button functionality
+    const musicToggle = document.getElementById('musicToggle');
+    if (musicToggle && backgroundMusic) {
+        musicToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Toggle play/pause
+            if (backgroundMusic.paused) {
+                backgroundMusic.play().then(() => {
+                    console.log('Music started playing via button');
+                }).catch(error => {
+                    console.log('Error playing music:', error);
+                });
+            } else {
+                backgroundMusic.pause();
+                console.log('Music paused via button');
+            }
+        });
+    }
+
     // Add loading class to body for initial animation
     document.body.classList.add('loaded');
 

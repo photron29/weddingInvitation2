@@ -181,7 +181,7 @@ h3 {
     object-fit: cover;
     border-radius: 50%;
     transition: transform 0.3s ease;
-    box-shadow: 0 0 15px -3px rgb(255, 19, 19);
+    box-shadow: 0 0 10px -1px white;
     /* border: 1px solid #fff; */
     padding: 2rem;
 }
@@ -610,6 +610,58 @@ h3 {
 }
 
 
+/* Music Toggle Button */
+.music-toggle {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(45deg, #e74c3c, #f39c12);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.music-toggle:hover {
+    background: linear-gradient(45deg, #c0392b, #e67e22);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+}
+
+.music-toggle:active {
+    transform: translateY(-1px);
+}
+
+.music-toggle.playing {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
 /* Scroll to Top Button */
 .scroll-to-top {
     position: fixed;
@@ -962,10 +1014,7 @@ h3 {
     .hero-img {
         width: 100px;
         height: 100%;
-        object-fit: cover;
         border-radius: 50%;
-        transition: transform 0.3s ease;
-        box-shadow: 0 0 15px -3px rgb(255, 0, 0);
         padding: 0.5rem;
         margin: 0 auto;
     }
