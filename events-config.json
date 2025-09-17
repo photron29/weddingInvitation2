@@ -1,0 +1,34 @@
+{
+    "events": [
+        {
+            "id": "mehendi",
+            "title": "Mehendi Ceremony",
+            "date": "November 11, 2025",
+            "time": "6:00 PM IST",
+            "venue": "Garden Palace Hotel, Mumbai",
+            "description": "Join us for an evening of henna art, music, and celebration as we prepare for the big day.",
+            "icon": "fas fa-praying-hands",
+            "featured": false
+        },
+        {
+            "id": "wedding",
+            "title": "Wedding Ceremony",
+            "date": "November 12, 2025",
+            "time": "4:00 PM IST",
+            "venue": "Taj Palace Hotel, Mumbai",
+            "description": "The moment we've been waiting for - our wedding ceremony where we'll say \"I do\" in front of our loved ones.",
+            "icon": "fas fa-heart",
+            "featured": true
+        },
+        {
+            "id": "reception",
+            "title": "Reception",
+            "date": "November 12, 2025",
+            "time": "7:00 PM IST",
+            "venue": "Taj Palace Hotel, Mumbai",
+            "description": "Dance the night away with us as we celebrate our new beginning with dinner, drinks, and dancing.",
+            "icon": "fas fa-utensils",
+            "featured": false
+        }
+    ]
+}

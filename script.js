@@ -11,6 +11,58 @@ const scrollToTopBtn = document.getElementById('scrollToTop');
 const weddingDateUTC = new Date('November 12, 2025 10:30:00 UTC'); // 16:00 IST = 10:30 UTC
 const weddingDate = weddingDateUTC.getTime();
 
+// Load events from JSON file
+async function loadEvents() {
+    try {
+        const response = await fetch('./events-config.json');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const eventsConfig = await response.json();
+        console.log('Events configuration loaded:', eventsConfig);
+
+        // Populate events section
+        populateEventsSection(eventsConfig.events);
+    } catch (error) {
+        console.error('Error loading events configuration:', error);
+        console.log('Using default events');
+    }
+}
+
+// Populate events section
+function populateEventsSection(events) {
+    const eventsGrid = document.getElementById('events-grid');
+
+    if (eventsGrid && events) {
+        eventsGrid.innerHTML = '';
+
+        events.forEach(event => {
+            const eventCard = document.createElement('div');
+            eventCard.className = `event-card ${event.featured ? 'featured' : ''}`;
+
+            eventCard.innerHTML = `
+                <div class="event-icon">
+                    <i class="${event.icon}"></i>
+                </div>
+                <h3>${event.title}</h3>
+                <div class="event-date">${event.date}</div>
+                <div class="event-time">${event.time}</div>
+                <div class="event-venue">${event.venue}</div>
+                <p class="event-description">${event.description}</p>
+            `;
+
+            eventsGrid.appendChild(eventCard);
+        });
+
+        // Set up animations and effects after content is loaded
+        setTimeout(() => {
+            observeAnimatedElements();
+            animateLoadedElements();
+            addHoverEffects();
+        }, 100);
+    }
+}
+
 function updateCountdown() {
     const now = new Date().getTime();
     const distance = weddingDate - now;
@@ -140,17 +192,17 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe elements for animation
-document.addEventListener('DOMContentLoaded', () => {
+// Observe elements for animation - will be called after content is loaded
+function observeAnimatedElements() {
     const animateElements = document.querySelectorAll('.timeline-item, .event-card');
     animateElements.forEach(el => {
         observer.observe(el);
     });
-});
+}
 
 
-// Add loading animation to elements
-document.addEventListener('DOMContentLoaded', () => {
+// Add loading animation to elements - will be called after content is loaded
+function animateLoadedElements() {
     const elements = document.querySelectorAll('.timeline-item, .event-card');
 
     elements.forEach((el, index) => {
@@ -163,10 +215,10 @@ document.addEventListener('DOMContentLoaded', () => {
             el.style.transform = 'translateY(0)';
         }, index * 100);
     });
-});
+}
 
-// Add hover effects to interactive elements
-document.addEventListener('DOMContentLoaded', () => {
+// Add hover effects to interactive elements - will be called after content is loaded
+function addHoverEffects() {
     const interactiveElements = document.querySelectorAll('.event-card, .timeline-item');
 
     interactiveElements.forEach(el => {
@@ -182,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-});
+}
 
 // Add smooth reveal animation for sections
 const revealElements = document.querySelectorAll('section');
@@ -385,6 +437,9 @@ document.head.appendChild(style);
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    // Load events from JSON
+    loadEvents();
+
     // Set initial countdown layout
     adjustCountdownLayout();
 
