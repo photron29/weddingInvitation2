@@ -7,8 +7,7 @@
             "time": "12:00 PM IST",
             "venue": "HOME",
             "description": "It’s time to mix beats, laughter, and mehendi 💃🎶. Join us for a vibrant Mehendi Celebration, where colors pop, hands glow, and hearts dance in happiness. 🌿💛",
-            "icon": "fas fa-praying-hands",
-            "featured": false
+            "icon": "fas fa-praying-hands"
         },
         {
             "id": "shagun",
