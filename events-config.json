@@ -7,8 +7,7 @@
             "time": "12:00 PM IST",
             "venue": "HOME",
             "description": "It’s time to mix beats, laughter, and mehendi 💃🎶. Join us for a vibrant Mehendi Celebration, where colors pop, hands glow, and hearts dance in happiness. 🌿💛",
-            "icon": "fas fa-praying-hands",
-            "featured": false
+            "icon": "fas fa-praying-hands"
         },
         {
             "id": "shagun",
@@ -17,8 +16,7 @@
             "time": "11:00 AM IST",
             "venue": "HOME",
             "description": "Your presence in our celebration means the world to us for those who wish to share their love and blessings with a small token (shagun),Thank you for being a part of our special day. 💖✨",
-            "icon": "fas fa-heart",
-            "featured": false
+            "icon": "fas fa-heart"
         },
         {
             "id": "baraat",
@@ -27,8 +25,7 @@
             "time": "8:00 PM IST",
             "venue": "B.S Kiran, Abtal Rd,Ramgarh",
             "description": "Get ready to dance your heart out. The Baraat is not just a procession — it’s a celebration on wheels, filled with beats, energy, and happiness as the groom and his squad make their grand entrance. 🚘✨",
-            "icon": "fas fa-drum",
-            "featured": true
+            "icon": "fas fa-drum"
         },
         {
             "id": "reception",
@@ -37,8 +34,7 @@
             "time": "8:00 PM IST",
             "venue": "Pooja Farm, Chak Patyara",
             "description": "Love deserves a grand celebration. Let’s toast to new beginnings, enjoy delicious food, great music, and dance the night away at the Reception Party! 🥂💃✨",
-            "icon": "fas fa-utensils",
-            "featured": false
+            "icon": "fas fa-utensils"
         }
     ]
 }

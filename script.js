@@ -33,12 +33,15 @@ async function loadEvents() {
 function populateEventsSection(events) {
     const eventsGrid = document.getElementById('events-grid');
 
+
     if (eventsGrid && events) {
         eventsGrid.innerHTML = '';
 
         events.forEach(event => {
             const eventCard = document.createElement('div');
-            eventCard.className = `event-card ${event.featured ? 'featured' : ''}`;
+            // Add event id as class for custom styling (e.g., mehendi-ceremony, shagun, reception)
+            let eventClass = event.id ? event.id : '';
+            eventCard.className = `event-card ${eventClass}`;
 
             eventCard.innerHTML = `
                 <div class="event-icon">
@@ -48,6 +51,7 @@ function populateEventsSection(events) {
                 <div class="event-date">${event.date}</div>
                 <div class="event-time">${event.time}</div>
                 <div class="event-venue">${event.venue}</div>
+                <hr>
                 <p class="event-description">${event.description}</p>
             `;
 
