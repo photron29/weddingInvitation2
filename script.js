@@ -5,6 +5,9 @@ const navMenu = document.querySelector('.nav-menu');
 const navLinks = document.querySelectorAll('.nav-link');
 const scrollIndicator = document.querySelector('.scroll-indicator');
 const scrollToTopBtn = document.getElementById('scrollToTop');
+const viewInvitationBtn = document.getElementById('viewInvitationBtn');
+const viewInvitationOverlay = document.getElementById('viewInvitationOverlay');
+const musicToggle = document.getElementById('musicToggle');
 
 // Countdown Timer - Indian Standard Time (IST: UTC+5:30)
 // Create date in IST by adding 5:30 hours to UTC
@@ -439,6 +442,40 @@ style.textContent = `
 document.head.appendChild(style);
 
 
+// Function to handle view invitation button click
+function handleViewInvitationClick() {
+    const backgroundMusic = document.getElementById('backgroundMusic');
+
+    if (viewInvitationBtn && backgroundMusic && viewInvitationOverlay) {
+        // Start the transformation animation
+        viewInvitationBtn.classList.add('transforming');
+
+        // Try to play audio immediately (this will work after user interaction)
+        backgroundMusic.play().then(() => {
+            console.log('Music started playing via View Invitation button');
+        }).catch(error => {
+            console.log('Error playing music:', error);
+        });
+
+        // Fade out the white overlay
+        setTimeout(() => {
+            viewInvitationOverlay.classList.add('fade-out');
+        }, 400); // Start fading after button starts transforming
+
+        // After animation completes, hide the overlay and show music toggle
+        setTimeout(() => {
+            viewInvitationOverlay.style.display = 'none';
+            musicToggle.style.display = 'flex';
+
+            // Update music toggle button state
+            if (!backgroundMusic.paused) {
+                musicToggle.classList.add('playing');
+                musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+        }, 800); // Match the animation duration
+    }
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     // Load events from JSON
@@ -446,6 +483,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Set initial countdown layout
     adjustCountdownLayout();
+
+    // Add click listener to view invitation button
+    if (viewInvitationBtn) {
+        viewInvitationBtn.addEventListener('click', handleViewInvitationClick);
+    }
 
     // Play background music
     const backgroundMusic = document.getElementById('backgroundMusic');
@@ -476,40 +518,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Try to play immediately (will likely fail on mobile)
-        backgroundMusic.play().catch(error => {
-            console.log('Autoplay prevented:', error);
-        });
+        // No autoplay - music will only start when user clicks "View Invitation" button
 
-        // Start music on first user interaction (works on all devices)
-        const startMusicOnInteraction = () => {
-            if (backgroundMusic.paused) {
-                backgroundMusic.play().then(() => {
-                    console.log('Music started on user interaction');
-                }).catch(e => console.log('Still cannot play:', e));
-            }
-        };
-
-        // Listen for various user interactions
-        document.addEventListener('click', startMusicOnInteraction, { once: true });
-        document.addEventListener('touchstart', startMusicOnInteraction, { once: true });
-        document.addEventListener('scroll', startMusicOnInteraction, { once: true });
-        document.addEventListener('keydown', startMusicOnInteraction, { once: true });
-
-        // Set initial button state after a small delay to ensure audio state is stable
-        setTimeout(() => {
-            const musicToggle = document.getElementById('musicToggle');
-            if (musicToggle && !backgroundMusic.paused) {
-                musicToggle.classList.add('playing');
-                musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
-            }
-        }, 100);
+        // Music starts paused - no initial state setting needed
     } else {
         console.log('Audio element not found');
     }
 
     // Music toggle button functionality
-    const musicToggle = document.getElementById('musicToggle');
     if (musicToggle && backgroundMusic) {
         musicToggle.addEventListener('click', (e) => {
             e.preventDefault();
@@ -519,12 +535,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if (backgroundMusic.paused) {
                 backgroundMusic.play().then(() => {
                     console.log('Music started playing via button');
+                    musicToggle.classList.add('playing');
+                    musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
                 }).catch(error => {
                     console.log('Error playing music:', error);
                 });
             } else {
                 backgroundMusic.pause();
                 console.log('Music paused via button');
+                musicToggle.classList.remove('playing');
+                musicToggle.innerHTML = '<i class="fas fa-music"></i>';
             }
         });
     }

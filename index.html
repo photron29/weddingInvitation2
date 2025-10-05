@@ -154,11 +154,25 @@
       Your browser does not support the audio element.
     </audio>
 
-    <!-- Music Control Button -->
+    <!-- White Background Overlay -->
+    <div id="viewInvitationOverlay" class="view-invitation-overlay">
+      <!-- Large View Invitation Button (initially visible) -->
+      <button
+        id="viewInvitationBtn"
+        class="view-invitation-btn"
+        aria-label="View invitation and start music"
+      >
+        <i class="fas fa-heart"></i>
+        <span>View Invitation</span>
+      </button>
+    </div>
+
+    <!-- Music Control Button (initially hidden) -->
     <button
       id="musicToggle"
       class="music-toggle"
       aria-label="Toggle background music"
+      style="display: none;"
     >
       <i class="fas fa-music"></i>
     </button>

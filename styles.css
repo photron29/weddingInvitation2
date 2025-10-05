@@ -525,7 +525,7 @@ h3 {
     height: 100%;
     justify-content: center;
     align-items: center;
-    
+
 }
 
 .event-card:hover {
@@ -554,9 +554,13 @@ h3 {
 }
 
 .event-card {
-    & h3, & .event-date, & .event-time, & .event-venue {
+
+    & h3,
+    & .event-date,
+    & .event-time,
+    & .event-venue {
         font-family: "Comic Relief", serif;
-}
+    }
 }
 
 .event-card h3 {
@@ -601,18 +605,20 @@ h3 {
 }
 
 
-.event-card.mehendi{
+.event-card.mehendi {
     background-color: rgba(255, 221, 0, 0.35);
     border: 2px solid rgb(188, 163, 0);
 
-    & hr{
+    & hr {
         border-color: rgb(188, 163, 0);
     }
 }
+
 .event-card.shagun {
-    background-color:rgb(94, 84, 229, 0.35);
+    background-color: rgb(94, 84, 229, 0.35);
     border: 2px solid rgb(13, 0, 198);
-    & hr{
+
+    & hr {
         border-color: rgb(13, 0, 198);
     }
 
@@ -621,20 +627,137 @@ h3 {
 .event-card.baraat {
     background-color: rgb(231, 76, 60, 0.35);
     border: 2px solid #e74c3c;
-    & hr{
+
+    & hr {
         border-color: #e74c3c;
     }
 }
-    
-.event-card.reception{
-    background-color:rgb(186, 45, 146, 0.35);
+
+.event-card.reception {
+    background-color: rgb(186, 45, 146, 0.35);
     border: 2px solid rgb(186, 45, 146);
-    & hr{
+
+    & hr {
         border-color: rgb(186, 45, 146);
     }
 }
 
 
+
+/* White Background Overlay */
+.view-invitation-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(255, 219, 199);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease;
+}
+
+.view-invitation-overlay.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* View Invitation Button (Large Center Button) */
+.view-invitation-btn {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(45deg, #e74c3c, #f39c12);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: 'Playfair Display', serif;
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1002;
+    opacity: 1;
+    visibility: visible;
+    gap: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.view-invitation-btn:hover {
+    background: linear-gradient(45deg, #c0392b, #e67e22);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(231, 76, 60, 0.5);
+    scale: 1.05;
+}
+
+.view-invitation-btn:active {
+    transform: translateY(-2px);
+    scale: 1.02;
+}
+
+.view-invitation-btn i {
+    font-size: 1.4rem;
+    animation: heartbeat 2s infinite;
+}
+
+@keyframes heartbeat {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* Button transformation animation */
+.view-invitation-btn.transforming {
+    animation: buttonTransform 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes buttonTransform {
+    0% {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        font-size: 1.1rem;
+        position: relative;
+    }
+
+    50% {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        font-size: 0.8rem;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    100% {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-size: 0.6rem;
+        position: fixed;
+        bottom: 30px;
+        left: 30px;
+        top: auto;
+        transform: none;
+    }
+}
 
 /* Music Toggle Button */
 .music-toggle {
@@ -955,6 +1078,13 @@ h3 {
         text-align: center;
     }
 
+    /* View Invitation Button Mobile */
+    .view-invitation-btn {
+        width: 180px;
+        height: 180px;
+        font-size: 1rem;
+    }
+
     /* Scroll to Top Button Mobile */
     .scroll-to-top {
         bottom: 20px;
@@ -1028,6 +1158,13 @@ h3 {
         height: 280px;
     }
 
+    /* View Invitation Button Small Mobile */
+    .view-invitation-btn {
+        width: 160px;
+        height: 160px;
+        font-size: 0.9rem;
+    }
+
     /* Scroll to Top Button Small Mobile */
     .scroll-to-top {
         bottom: 15px;
@@ -1045,6 +1182,3 @@ h3 {
         margin: 0 auto;
     }
 }
-
-
-
